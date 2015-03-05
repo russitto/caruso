@@ -1,0 +1,22 @@
+{
+  "name": "caruso",
+  "version": "0.3.0",
+  "authors": [
+    "Matias R. <matias@russitto.com>"
+  ],
+  "description": "Simple Responsive Carousel",
+  "main": "gulpfile.js",
+  "keywords": [
+    "carousel",
+    "responsive"
+  ],
+  "license": "MIT",
+  "homepage": "http://russitto.com/",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

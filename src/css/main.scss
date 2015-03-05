@@ -1,0 +1,130 @@
+html {
+  font-size: 1.5em;
+}
+
+* { margin: 0; padding: 0; border: 0; }
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+
+body {
+  background: #ccc;
+  font-family: Oxygen-Sans, Helvetica, Arial, sans-serif;
+}
+
+#flogger {
+  color: #0f0;
+  pre {
+    margin: .5em;
+    padding: .25em;
+    background: #000;
+    font-size: 70%;
+  }
+}
+
+a {
+  &:hover{
+    text-decoration: none;
+  }
+}
+
+.clearfix {
+  float: none;
+  display: block;
+  clear: both;
+}
+
+// based on http://jsfiddle.net/kdRJ7/
+/*
+::-webkit-scrollbar { 
+  display: none; 
+}
+*/
+
+$height: 300px;
+$heightEx: $height + 30px;
+.caruso {
+  width: 100%;
+  height: $height;
+  overflow: hidden;
+  background: #000;
+  position: relative;
+  .left, .right {
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    background: #444;
+    color: #fff;
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+    top: 5em;
+    overflow: hidden;
+    &:hover {
+      color: #444;
+      background: #ccc;
+    }
+  }
+  .left {
+    display: none;
+    left: 1em;
+  }
+  .right {
+    right: 1em;
+  }
+}
+
+.viewport {
+  width: 100%;
+  height: $heightEx; /* Note the excessive extra height to keep h-scrollbar at bay */
+  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+// 3 items por página cuando el tamaño es < 768px - pantallas chicas
+$count: 6;
+$itemsPerPage: 3;
+$totalWidth: 100% * $count / $itemsPerPage;
+.horizontal {
+  width: $totalWidth;
+  height: $heightEx;
+}
+
+$width: (100% / $count) - 1%;
+.item {
+  width: $width;
+  height: $heightEx;
+  float: left;
+  background: blue;
+  margin: 0 1% 0 0;
+}
+
+// 4 items por página cuando el tamaño es >= 480px - pantallas mobile medianas
+$itemsPerPage: 4;
+$totalWidth: 100% * $count / $itemsPerPage;
+$width: (100% / $count) - 1%;
+@media screen and (min-width: 30em) {
+  .horizontal {
+    width: $totalWidth;
+  }
+  .item {
+    width: $width;
+  }
+}
+
+// 5 items por página cuando el tamaño es >= 768px - pantallas grandes
+$itemsPerPage: 5;
+$totalWidth: 100% * $count / $itemsPerPage;
+$width: (100% / $count) - 1%;
+@media screen and (min-width: 48em) {
+  .horizontal {
+    width: $totalWidth;
+  }
+  .item {
+    width: $width;
+  }
+}
+
+/* vim:set ts=2 sw=2 et: */

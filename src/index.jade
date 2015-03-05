@@ -1,0 +1,21 @@
+doctype
+html
+  head
+    title Caruso
+    link(rel='stylesheet', type='text/css', href='./css/main.css')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+  body
+    #content
+      h1 Caruso
+      - var n = 0
+      .caruso
+        a.left.fa.fa-chevron-left(href="#") «
+        .viewport
+          .horizontal
+            while n < 6 
+              .item= 'extra ' + n++
+        a.right.fa.fa-chevron-right(href="#") »
+      .clearfix
+      #dest
+    script(src='./js/all.min.js')
+// vim:set ts=2 sw=2 et:
