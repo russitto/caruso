@@ -32,6 +32,7 @@ a {
   float: none;
   display: block;
   clear: both;
+  content: " ";
 }
 
 // based on http://jsfiddle.net/kdRJ7/
@@ -41,13 +42,12 @@ a {
 }
 */
 
-$height: 300px;
-$heightEx: $height + 30px;
+$height: 20%;
+$heightEx: 22%;
 .caruso {
   width: 100%;
   height: $height;
   overflow: hidden;
-  background: #000;
   position: relative;
   .left, .right {
     text-decoration: none;
@@ -59,7 +59,7 @@ $heightEx: $height + 30px;
     width: 2em;
     height: 2em;
     line-height: 2em;
-    top: 5em;
+    top: 35%;
     overflow: hidden;
     &:hover {
       color: #444;
@@ -77,10 +77,16 @@ $heightEx: $height + 30px;
 
 .viewport {
   width: 100%;
-  height: $heightEx; /* Note the excessive extra height to keep h-scrollbar at bay */
+  // Note the excessive extra height to keep h-scrollbar at bay
+  height: $heightEx;
   overflow: auto;
   overflow-x: auto;
   overflow-y: hidden;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar { 
+    width: 0 !important;
+  }
 }
 
 // 3 items por página cuando el tamaño es < 768px - pantallas chicas
@@ -89,7 +95,14 @@ $itemsPerPage: 3;
 $totalWidth: 100% * $count / $itemsPerPage;
 .horizontal {
   width: $totalWidth;
+  min-height: $heightEx;
   height: $heightEx;
+  &::after {
+    float: none;
+    display: block;
+    clear: both;
+    content: " ";
+  }
 }
 
 $width: (100% / $count) - 1%;
@@ -97,8 +110,11 @@ $width: (100% / $count) - 1%;
   width: $width;
   height: $heightEx;
   float: left;
-  background: blue;
   margin: 0 1% 0 0;
+  img {
+    width: 100%;
+    height: auto;
+  }
 }
 
 // 4 items por página cuando el tamaño es >= 480px - pantallas mobile medianas

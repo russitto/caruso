@@ -2,9 +2,12 @@ class Caruso
   @movement: 80
 
   constructor: (elem) ->
+    # scrollbar fix
+
     left = elem.querySelectorAll('.left')
     right = elem.querySelectorAll('.right')
     scrollable = elem.querySelectorAll('.viewport')
+
     if scrollable.length
       if left.length
         # supongo que es uno solito

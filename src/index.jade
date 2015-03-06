@@ -13,9 +13,11 @@ html
         .viewport
           .horizontal
             while n < 6 
-              .item= 'extra ' + n++
+              .item
+                img(src='http://lorempixel.com/258/350/abstract/imagen' + n, alt='Cargando imagen ' + (n++) + '…')
         a.right.fa.fa-chevron-right(href="#") »
       .clearfix
+      .extra Lorem… Ita…
       #dest
     script(src='./js/all.min.js')
 // vim:set ts=2 sw=2 et:
