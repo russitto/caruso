@@ -62,6 +62,9 @@ class Caruso
           scrollable[0].scrollLeft = scroll
 
   moreItems: ->
+    # si el moreItemsUrl es vacío entonces no hago mas pedidos
+    return false if @moreItemsUrl == ''
+
     elem = @elem
     right = elem.querySelectorAll '.right'
     container = elem.querySelectorAll '.horizontal'
