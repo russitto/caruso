@@ -9,13 +9,15 @@ html
       h1 Caruso
       - var n = 0
       .caruso
-        a.left.fa.fa-chevron-left(href="#") «
+        .arrow.left.disabled
+          a.fa.fa-chevron-left(href="#") «
         .viewport
           .horizontal
             while n < 6 
               .item
                 img(src='http://lorempixel.com/258/350/abstract/imagen' + n, alt='Cargando imagen ' + (n++) + '…')
-        a.right.fa.fa-chevron-right(href="#") »
+        .arrow.right
+          a.fa.fa-chevron-right(href="#") »
       .clearfix
       .extra Lorem… Ita…
       #dest

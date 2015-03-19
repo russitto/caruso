@@ -50,24 +50,27 @@ $heightEx: 22%;
   overflow: hidden;
   position: relative;
   .left, .right {
-    text-decoration: none;
     text-align: center;
     display: block;
     background: #444;
-    color: #fff;
     position: absolute;
     width: 2em;
     height: 2em;
     line-height: 2em;
     top: 35%;
     overflow: hidden;
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
     &:hover {
-      color: #444;
       background: #ccc;
+      a {
+        color: #444;
+      }
     }
   }
   .left {
-    display: none;
     left: 1em;
   }
   .right {
@@ -106,15 +109,20 @@ $totalWidth: 100% * $count / $itemsPerPage;
 }
 
 $width: (100% / $count) - 1%;
+$margin: 6% / $count;
 .item {
   width: $width;
   height: $heightEx;
   float: left;
-  margin: 0 1% 0 0;
+  /margin: 0 $margin 0 0;
   img {
     width: 100%;
     height: auto;
   }
+}
+
+.caruso .left.disabled, .disabled {
+  display: none;
 }
 
 // 4 items por página cuando el tamaño es >= 480px - pantallas mobile medianas

@@ -3,3 +3,4 @@
 *.swo
 *.bkp
 *.bak
+/npm-debug.log

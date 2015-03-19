@@ -24,6 +24,14 @@ class Ajax
     xhr.send parameters
     xhr
 
+  @getCb: (url, cb) ->
+    xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = ->
+      cb(xhr) if xhr.readyState == 4
+    xhr.open 'GET', url, true
+    xhr.send ''
+    xhr
+
 root = exports ? this
 root.Ajax = Ajax
 # vim:set ts=2 sw=2 et:

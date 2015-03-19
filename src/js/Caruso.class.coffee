@@ -1,42 +1,124 @@
 class Caruso
-  @movement: 80
+  movement: 'auto'
+  flagAjaxFree: true
 
-  constructor: (elem) ->
-    # scrollbar fix
+  constructor: (@elem) ->
+    elem = @elem
+    if @movement == 'auto'
+      @movement = elem.querySelectorAll('.item')[0].offsetWidth
 
-    left = elem.querySelectorAll('.left')
-    right = elem.querySelectorAll('.right')
-    scrollable = elem.querySelectorAll('.viewport')
+    left = elem.querySelectorAll '.left'
+    right = elem.querySelectorAll '.right'
+    scrollable = elem.querySelectorAll '.viewport'
+    container = elem.querySelectorAll '.horizontal'
+    thiss = this
+
 
     if scrollable.length
+      scrollable[0].addEventListener 'scroll', (e) ->
+        scroll = scrollable[0].scrollLeft
+
+        #console.log scrollable[0].scrollLeft+scrollable[0].offsetWidth, container[0].offsetWidth
+        if scrollable[0].scrollLeft + scrollable[0].offsetWidth >= container[0].offsetWidth - 100
+          thiss.moreItems()
+
+        if scroll <= 0
+          scroll = 0
+          Caruso.hide left[0]
+        else
+          Caruso.show left[0]
+
+        if (scrollable[0].scrollLeft + scrollable[0].offsetWidth) >= container[0].offsetWidth
+          Caruso.hide right[0]
+        else
+          Caruso.show right[0]
+
+      #scrollable[0].dispatchEvent new Event('scroll')
+
       if left.length
         # supongo que es uno solito
         left[0].addEventListener 'click', (e) ->
-          scroll = scrollable[0].scrollLeft - Caruso.movement
-          if scroll <= 0
-            scroll = 0
-            Caruso.hide this
-          else
-            Caruso.show this
+          e.preventDefault()
+          e.stopPropagation()
+          if left[0].disabled
+            return false
+
+          scroll = scrollable[0].scrollLeft - thiss.movement
           scrollable[0].scrollLeft = scroll
           Caruso.show right[0]
-          e.preventDefault()
       if right.length
         # supongo que es uno solito
         right[0].addEventListener 'click', (e) ->
-          scroll = scrollable[0].scrollLeft + Caruso.movement
-          scrollable[0].scrollLeft = scroll
-          if scroll > scrollable[0].scrollLeft
-            Caruso.hide this
-          else
-            Caruso.show this
-          Caruso.show left[0]
           e.preventDefault()
+          e.stopPropagation()
+          if right[0].disabled
+            return false
+
+          scroll = scrollable[0].scrollLeft + thiss.movement
+          scrollable[0].scrollLeft = scroll
+
+  moreItems: () ->
+    elem = @elem
+    right = elem.querySelectorAll '.right'
+    container = elem.querySelectorAll '.horizontal'
+    console.log 'flagAjax:', @flagAjaxFree
+    thiss = this
+    #oldCount = elem.querySelectorAll('.item').length
+
+    if container.length
+      if @flagAjaxFree
+        @flagAjaxFree = false
+        Ajax.getCb '/xhr-html.html?'+Math.random(), (xhr) ->
+          console.log 'flag en true'
+          Caruso.loading right[0].children[0]
+          if xhr.response != ''
+            container[0].innerHTML += xhr.response
+            #count = elem.querySelectorAll('.item').length
+            #thiss.fixLengths(count/oldCount)
+            thiss.fixLengths()
+            Caruso.loading right[0].children[0], false
+            Caruso.show right[0]
+            thiss.flagAjaxFree = true
+            true
+          else
+            false
+
+  fixLengths: (incr) ->
+    elem = @elem
+    container = elem.querySelectorAll '.horizontal'
+    elems = elem.querySelectorAll '.item'
+    count = elems.length
+    console.log count
+    if container.length and count
+      screenW = document.documentElement.clientWidth
+      itemsPerPage = 3
+      if screenW >= 480
+        itemsPerPage = 4
+      else if screenW >= 768
+        itemsPerPage = 5
+
+      w = 100/count - 1
+      margin = 6/count
+      totalW = 100*count/itemsPerPage
+      container[0].style.width = totalW + "%"
+      for item in elems
+        Caruso.show item
+        item.style.width = w + "%"
+        item.style.marignRight = margin + "%"
 
   @show: (elem) ->
-    elem.style.display = 'block'
+    elem.className = elem.className.replace(/(?:^|\s)disabled(?!\S)/g , '')
+    elem.disabled = false
   @hide: (elem) ->
-    elem.style.display = 'none'
+    elem.disabled = true
+    elem.className += " disabled"
+
+  @loading: (elem, state = true) ->
+    if state
+      elem.innerHTML = '…'
+    else
+      elem.innerHTML = '»'
+
 
 root = exports ? this
 root.Caruso = Caruso
