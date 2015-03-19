@@ -86,7 +86,7 @@ a:hover {
     content: " "; }
 
 .item {
-  width: 15.66667%;
+  width: 16.66667%;
   height: 22%;
   float: left; }
   .item img {
@@ -100,13 +100,13 @@ a:hover {
   .horizontal {
     width: 150%; }
   .item {
-    width: 15.66667%; } }
+    width: 16.66667%; } }
 
 @media screen and (min-width: 48em) {
   .horizontal {
     width: 120%; }
   .item {
-    width: 15.66667%; } }
+    width: 16.66667%; } }
 
 /* vim:set ts=2 sw=2 et: */
 

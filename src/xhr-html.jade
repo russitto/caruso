@@ -1,6 +1,13 @@
 - var n = 0
+- var extra = ['caca', 'culo', 'pedo', 'pis']
+- var category = ['city', 'sports', 'technics', 'transport']
+- var len = extra.length
+- var catLen = category.length
 while n < 6 
+  - var text = extra[Math.floor(Math.random() * len)]
+  - var cat = category[Math.floor(Math.random() * catLen)]
+  - var nn = Math.floor(Math.random() * 100)
   .item.disabled
-    img(src='http://lorempixel.com/258/350/abstract/imagen' + n, alt='Cargando imagen ' + (n++) + '…')
+    img(src='http://lorempixel.com/258/350/' + cat + '/' + text + nn, alt='Cargando imagen ' + (n++) + ' ' + text + '…')
 
 //-input(type='hidden', id='more-items', value='0')

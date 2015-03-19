@@ -13,12 +13,12 @@ class Caruso
     container = elem.querySelectorAll '.horizontal'
     thiss = this
 
+    window.onresize = @fixLengths
 
     if scrollable.length
       scrollable[0].addEventListener 'scroll', (e) ->
         scroll = scrollable[0].scrollLeft
 
-        #console.log scrollable[0].scrollLeft+scrollable[0].offsetWidth, container[0].offsetWidth
         if scrollable[0].scrollLeft + scrollable[0].offsetWidth >= container[0].offsetWidth - 100
           thiss.moreItems()
 
@@ -57,11 +57,10 @@ class Caruso
           scroll = scrollable[0].scrollLeft + thiss.movement
           scrollable[0].scrollLeft = scroll
 
-  moreItems: () ->
+  moreItems: ->
     elem = @elem
     right = elem.querySelectorAll '.right'
     container = elem.querySelectorAll '.horizontal'
-    console.log 'flagAjax:', @flagAjaxFree
     thiss = this
     #oldCount = elem.querySelectorAll('.item').length
 
@@ -69,7 +68,6 @@ class Caruso
       if @flagAjaxFree
         @flagAjaxFree = false
         Ajax.getCb '/xhr-html.html?'+Math.random(), (xhr) ->
-          console.log 'flag en true'
           Caruso.loading right[0].children[0]
           if xhr.response != ''
             container[0].innerHTML += xhr.response
@@ -83,28 +81,29 @@ class Caruso
           else
             false
 
-  fixLengths: (incr) ->
+  fixLengths: ->
     elem = @elem
     container = elem.querySelectorAll '.horizontal'
     elems = elem.querySelectorAll '.item'
     count = elems.length
-    console.log count
     if container.length and count
       screenW = document.documentElement.clientWidth
-      itemsPerPage = 3
-      if screenW >= 480
-        itemsPerPage = 4
-      else if screenW >= 768
+      if screenW >= 768
         itemsPerPage = 5
+      else if screenW >= 480
+        itemsPerPage = 4
+      else
+        itemsPerPage = 3
 
-      w = 100/count - 1
+      w = 100/count
       margin = 6/count
       totalW = 100*count/itemsPerPage
+      console.log count, itemsPerPage, 'totalW: ', totalW
       container[0].style.width = totalW + "%"
       for item in elems
         Caruso.show item
         item.style.width = w + "%"
-        item.style.marignRight = margin + "%"
+        #item.style.marignRight = margin + "%"
 
   @show: (elem) ->
     elem.className = elem.className.replace(/(?:^|\s)disabled(?!\S)/g , '')
@@ -118,7 +117,6 @@ class Caruso
       elem.innerHTML = '…'
     else
       elem.innerHTML = '»'
-
 
 root = exports ? this
 root.Caruso = Caruso

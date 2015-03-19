@@ -108,13 +108,13 @@ $totalWidth: 100% * $count / $itemsPerPage;
   }
 }
 
-$width: (100% / $count) - 1%;
+$width: 100% / $count;
 $margin: 6% / $count;
 .item {
   width: $width;
   height: $heightEx;
   float: left;
-  /margin: 0 $margin 0 0;
+  //margin: 0 $margin 0 0;
   img {
     width: 100%;
     height: auto;
@@ -128,7 +128,7 @@ $margin: 6% / $count;
 // 4 items por página cuando el tamaño es >= 480px - pantallas mobile medianas
 $itemsPerPage: 4;
 $totalWidth: 100% * $count / $itemsPerPage;
-$width: (100% / $count) - 1%;
+$width: 100% / $count;
 @media screen and (min-width: 30em) {
   .horizontal {
     width: $totalWidth;
@@ -141,7 +141,7 @@ $width: (100% / $count) - 1%;
 // 5 items por página cuando el tamaño es >= 768px - pantallas grandes
 $itemsPerPage: 5;
 $totalWidth: 100% * $count / $itemsPerPage;
-$width: (100% / $count) - 1%;
+$width: 100% / $count;
 @media screen and (min-width: 48em) {
   .horizontal {
     width: $totalWidth;
