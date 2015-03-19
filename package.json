@@ -1,4 +1,9 @@
 {
+  "name": "caruso",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "gulp"
+  },
   "devDependencies": {
     "gulp": "~3.8.11",
     "gulp-markdown": "^1.0.0",
