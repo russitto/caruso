@@ -1,6 +1,9 @@
 class Caruso
   movement: 'auto'
   flagAjaxFree: true
+  moreItemsUrl: '/xhr-html.html?'+Math.random()
+  moreItemsCallback: ->
+    @moreItemsUrl = '/xhr-html.html?'+Math.random()
 
   constructor: (@elem) ->
     elem = @elem
@@ -13,7 +16,8 @@ class Caruso
     container = elem.querySelectorAll '.horizontal'
     thiss = this
 
-    window.onresize = @fixLengths
+    window.onresize = ()->
+      thiss.fixLengths()
 
     if scrollable.length
       scrollable[0].addEventListener 'scroll', (e) ->
@@ -67,7 +71,7 @@ class Caruso
     if container.length
       if @flagAjaxFree
         @flagAjaxFree = false
-        Ajax.getCb '/xhr-html.html?'+Math.random(), (xhr) ->
+        Ajax.getCb @moreItemsUrl, (xhr) ->
           Caruso.loading right[0].children[0]
           if xhr.response != ''
             container[0].innerHTML += xhr.response
@@ -76,6 +80,7 @@ class Caruso
             thiss.fixLengths()
             Caruso.loading right[0].children[0], false
             Caruso.show right[0]
+            thiss.moreItemsCallback() if thiss.moreItemsCallback
             thiss.flagAjaxFree = true
             true
           else
@@ -98,7 +103,6 @@ class Caruso
       w = 100/count
       margin = 6/count
       totalW = 100*count/itemsPerPage
-      console.log count, itemsPerPage, 'totalW: ', totalW
       container[0].style.width = totalW + "%"
       for item in elems
         Caruso.show item

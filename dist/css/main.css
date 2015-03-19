@@ -90,8 +90,9 @@ a:hover {
   height: 22%;
   float: left; }
   .item img {
-    width: 100%;
-    height: auto; }
+    width: 96%;
+    height: auto;
+    margin: 0 2%; }
 
 .caruso .left.disabled, .disabled {
   display: none; }
