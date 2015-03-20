@@ -76,8 +76,8 @@ class Caruso
     if container.length
       if @flagAjaxFree
         @flagAjaxFree = false
+        selff.loading right[0].children[0]
         Ajax.getCb @moreItemsUrl, (xhr) ->
-          selff.loading right[0].children[0]
           if xhr.response != ''
             container[0].innerHTML += xhr.response
             #count = elem.querySelectorAll('.item').length
