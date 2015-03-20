@@ -85,7 +85,7 @@ class Caruso
             thiss.fixLengths()
             selff.loading right[0].children[0], false
             selff.show right[0]
-            thiss.moreItemsCallback() if thiss.moreItemsCallback
+            thiss.moreItemsCallback(xhr) if thiss.moreItemsCallback
             thiss.flagAjaxFree = true
             true
           else
