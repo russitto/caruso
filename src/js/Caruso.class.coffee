@@ -15,6 +15,7 @@ class Caruso
     scrollable = elem.querySelectorAll '.viewport'
     container = elem.querySelectorAll '.horizontal'
     thiss = this
+    selff = @constructor
 
     window.onresize = ()->
       thiss.fixLengths()
@@ -28,14 +29,14 @@ class Caruso
 
         if scroll <= 0
           scroll = 0
-          Caruso.hide left[0]
+          selff.hide left[0]
         else
-          Caruso.show left[0]
+          selff.show left[0]
 
         if (scrollable[0].scrollLeft + scrollable[0].offsetWidth) >= container[0].offsetWidth
-          Caruso.hide right[0]
+          selff.hide right[0]
         else
-          Caruso.show right[0]
+          selff.show right[0]
 
       #scrollable[0].dispatchEvent new Event('scroll')
 
@@ -49,7 +50,7 @@ class Caruso
 
           scroll = scrollable[0].scrollLeft - thiss.movement
           scrollable[0].scrollLeft = scroll
-          Caruso.show right[0]
+          thiss.show right[0]
       if right.length
         # supongo que es uno solito
         right[0].addEventListener 'click', (e) ->
@@ -69,20 +70,21 @@ class Caruso
     right = elem.querySelectorAll '.right'
     container = elem.querySelectorAll '.horizontal'
     thiss = this
+    selff = @constructor
     #oldCount = elem.querySelectorAll('.item').length
 
     if container.length
       if @flagAjaxFree
         @flagAjaxFree = false
         Ajax.getCb @moreItemsUrl, (xhr) ->
-          Caruso.loading right[0].children[0]
+          selff.loading right[0].children[0]
           if xhr.response != ''
             container[0].innerHTML += xhr.response
             #count = elem.querySelectorAll('.item').length
             #thiss.fixLengths(count/oldCount)
             thiss.fixLengths()
-            Caruso.loading right[0].children[0], false
-            Caruso.show right[0]
+            selff.loading right[0].children[0], false
+            selff.show right[0]
             thiss.moreItemsCallback() if thiss.moreItemsCallback
             thiss.flagAjaxFree = true
             true
@@ -108,9 +110,8 @@ class Caruso
       totalW = 100*count/itemsPerPage
       container[0].style.width = totalW + "%"
       for item in elems
-        Caruso.show item
+        @constructor.show item
         item.style.width = w + "%"
-        #item.style.marignRight = margin + "%"
 
   @show: (elem) ->
     elem.className = elem.className.replace(/(?:^|\s)disabled(?!\S)/g , '')
