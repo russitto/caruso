@@ -1,9 +1,9 @@
 class Caruso
   movement: 'auto'
   flagAjaxFree: true
-  moreItemsUrl: '/xhr-html.html?'+Math.random()
+  moreItemsUrl: 'xhr-html.html?'+Math.random()
   moreItemsCallback: ->
-    @moreItemsUrl = '/xhr-html.html?'+Math.random()
+    @moreItemsUrl = 'xhr-html.html?'+Math.random()
 
   constructor: (@elem) ->
     elem = @elem
