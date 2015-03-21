@@ -9,3 +9,7 @@ Use via dist folder
 * Install node-sass globally
 * Run npm install
 * Run gulp or gulp build
+
+## Demo
+
+https://rawgit.com/russitto/caruso/master/dist/index.html
